@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ExternalLink, Sparkles, Smartphone } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/icons";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import SectionWrapper from "@/components/ui/section-wrapper";
 import TechBadge from "@/components/ui/tech-badge";
 
 export default function Projects() {
+  const [activeSkillChainTab, setActiveSkillChainTab] = useState<"homepage" | "mockup" | "chat">("homepage");
   const featuredRef = useRef<HTMLDivElement>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
   const featuredInView = useInView(featuredRef, {
@@ -16,6 +17,12 @@ export default function Projects() {
     margin: "-100px",
   });
   const mobileInView = useInView(mobileRef, { once: true, margin: "-100px" });
+
+  const skillChainImages = {
+    homepage: "/skillchian-homepage.png",
+    mockup: "/skill-chain-mokcup.png",
+    chat: "/skill-chain-chat.png",
+  };
 
   return (
     <SectionWrapper id="projects" number="03" label="Projects">
@@ -42,7 +49,7 @@ export default function Projects() {
 
         <div className="grid lg:grid-cols-2">
           {/* Info Column */}
-          <div className="flex flex-col justify-center p-8 md:p-12">
+          <div className="flex flex-col justify-center p-5 sm:p-8 md:p-12">
             <div className="mb-4 flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-accent" />
               <span className="font-mono text-xs uppercase tracking-widest text-accent">
@@ -64,7 +71,7 @@ export default function Projects() {
             </p>
 
             {/* Features */}
-            <ul className="mt-6 grid grid-cols-2 gap-2">
+            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
                 "AI-based job recommendations",
                 "Telegram bot integration",
@@ -115,24 +122,63 @@ export default function Projects() {
           </div>
 
           {/* Image Column */}
-          <div className="relative flex items-center justify-center overflow-hidden bg-zinc-100 p-8 dark:bg-zinc-800/30 lg:p-12">
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.4 }}
-              className="relative w-full overflow-hidden rounded-xl shadow-2xl"
-            >
-              <Image
-                src="/skillchain-mockup.png"
-                alt="Skill-Chain AI-powered job matching platform dashboard showing job recommendations and candidate profiles"
-                width={800}
-                height={500}
-                className="h-auto w-full object-cover"
-                loading="lazy"
-              />
-            </motion.div>
+          <div className="relative flex flex-col items-center justify-center overflow-hidden bg-zinc-100 p-5 sm:p-8 dark:bg-zinc-800/30 lg:p-12">
+            {/* Interactive Preview Selector Tabs */}
+            <div className="mb-4 flex flex-wrap justify-center items-center gap-1 rounded-full border border-zinc-200 bg-white/90 p-1 backdrop-blur-md dark:border-zinc-700/90 dark:bg-zinc-900/90 shadow-sm z-20">
+              <button
+                onClick={() => setActiveSkillChainTab("homepage")}
+                className={`rounded-full px-3 py-1 font-mono text-xs transition-all ${
+                  activeSkillChainTab === "homepage"
+                    ? "bg-accent text-white font-medium shadow-sm"
+                    : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                }`}
+              >
+                Homepage
+              </button>
+              <button
+                onClick={() => setActiveSkillChainTab("mockup")}
+                className={`rounded-full px-3 py-1 font-mono text-xs transition-all ${
+                  activeSkillChainTab === "mockup"
+                    ? "bg-accent text-white font-medium shadow-sm"
+                    : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                }`}
+              >
+                App Mockup
+              </button>
+              <button
+                onClick={() => setActiveSkillChainTab("chat")}
+                className={`rounded-full px-3 py-1 font-mono text-xs transition-all ${
+                  activeSkillChainTab === "chat"
+                    ? "bg-accent text-white font-medium shadow-sm"
+                    : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                }`}
+              >
+                Chat View
+              </button>
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSkillChainTab}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
+                className="relative w-full overflow-hidden rounded-xl shadow-2xl"
+              >
+                <Image
+                  src={skillChainImages[activeSkillChainTab]}
+                  alt={`Skill-Chain AI-powered job matching platform - ${activeSkillChainTab}`}
+                  width={1200}
+                  height={750}
+                  className="h-auto w-full object-cover"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
 
             {/* Decorative gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-50 via-transparent to-transparent dark:from-zinc-900/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-50 via-transparent to-transparent dark:from-zinc-900/50 pointer-events-none" />
           </div>
         </div>
       </motion.div>
@@ -152,7 +198,7 @@ export default function Projects() {
 
         <div className="grid items-center lg:grid-cols-2">
           {/* Phone Mockup Column */}
-          <div className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 p-12 dark:from-amber-950/20 dark:to-orange-950/20 lg:order-1 lg:p-16">
+          <div className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 p-6 sm:p-12 dark:from-amber-950/20 dark:to-orange-950/20 lg:order-1 lg:p-16">
             <motion.div
               whileHover={{ scale: 1.05, rotate: 1 }}
               transition={{ duration: 0.4 }}
@@ -175,7 +221,7 @@ export default function Projects() {
           </div>
 
           {/* Info Column */}
-          <div className="flex flex-col justify-center p-8 md:p-12 lg:order-0">
+          <div className="flex flex-col justify-center p-5 sm:p-8 md:p-12 lg:order-0">
             <div className="mb-4 flex items-center gap-2">
               <Smartphone className="h-4 w-4 text-amber-500" />
               <span className="font-mono text-xs uppercase tracking-widest text-amber-600 dark:text-amber-400">

@@ -6,7 +6,7 @@ import {
   Dumbbell,
   Swords,
   Music,
-  PenTool,
+  Palette,
   Waves,
 } from "lucide-react";
 import SectionWrapper from "@/components/ui/section-wrapper";
@@ -22,7 +22,7 @@ const interests: Interest[] = [
   { name: "Sports", icon: <Dumbbell className="h-5 w-5" />, color: "text-blue-500" },
   { name: "Martial Arts", icon: <Swords className="h-5 w-5" />, color: "text-red-500" },
   { name: "Salsa Dancing", icon: <Music className="h-5 w-5" />, color: "text-pink-500" },
-  { name: "Poetry Making", icon: <PenTool className="h-5 w-5" />, color: "text-amber-500" },
+  { name: "Pottery", icon: <Palette className="h-5 w-5" />, color: "text-amber-500" },
   { name: "Swimming", icon: <Waves className="h-5 w-5" />, color: "text-cyan-500" },
 ];
 

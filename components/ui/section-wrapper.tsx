@@ -27,7 +27,7 @@ export default function SectionWrapper({
       id={id}
       className={`relative py-24 md:py-32 ${className}`}
     >
-      <div className="mx-auto max-w-6xl px-6 md:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
         {number && label && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

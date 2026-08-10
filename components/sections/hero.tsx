@@ -17,27 +17,21 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-// Split code into parts: before stack, the stack content, and after stack
-const codeBefore = `const frezer = {
+// Split code into parts
+const codeString = `const frezer = {
   name: "Frezer Metasebia Girma",
   role: "Frontend Developer",
   location: "Addis Ababa, Ethiopia",
-  stack: [`;
-
-const stackContent = `
+  stack: [
     "React", "Next.js", "TypeScript",
     "Tailwind CSS", "Flutter",
-  ],`;
-
-const codeAfter = `
+  ],
   passions: [
     "Clean UI", "Accessibility",
     "Performance", "Great UX",
   ],
   availableForHire: true,
 } as const;`;
-
-const codeString = codeBefore + stackContent + codeAfter;
 
 // Tokenizer for TypeScript-like syntax highlighting
 function tokenize(code: string) {
@@ -131,43 +125,11 @@ function tokenize(code: string) {
   });
 }
 
+const tokenizedLines = tokenize(codeString);
+const totalLines = tokenizedLines.length;
+
 export default function Hero() {
   const [copied, setCopied] = useState(false);
-  const [typedLength, setTypedLength] = useState(0);
-  const [isTypingDone, setIsTypingDone] = useState(false);
-
-  // Only animate through the stack content
-  useEffect(() => {
-    // Initial delay before typing starts
-    const startDelay = setTimeout(() => {
-      setTypedLength(1);
-    }, 800);
-    return () => clearTimeout(startDelay);
-  }, []);
-
-  useEffect(() => {
-    if (typedLength === 0) return;
-    if (typedLength >= stackContent.length) {
-      setIsTypingDone(true);
-      return;
-    }
-
-    const char = stackContent[typedLength];
-    const delay = char === "\n" ? 120 : char === " " ? 40 : 35;
-
-    const timer = setTimeout(() => {
-      setTypedLength((prev) => prev + 1);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [typedLength]);
-
-  // Build the visible code: before + typed portion of stack + (after if done)
-  const typedStack = stackContent.slice(0, typedLength);
-  const visibleCode = codeBefore + typedStack + (isTypingDone ? codeAfter : "");
-  const tokenizedLines = tokenize(visibleCode);
-  // Total lines for the final code (to reserve space for line numbers)
-  const totalLines = codeString.split("\n").length;
 
   const handleCopy = async () => {
     try {
@@ -193,16 +155,19 @@ export default function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden"
     >
       {/* Background Dot Sheet Fabric Pattern */}
-      <div className="absolute inset-0 dot-grid-bg opacity-0 dark:opacity-75" />
-      <div className="absolute inset-0 dot-grid-bg-light opacity-80 dark:opacity-0" />
+      <div className="absolute inset-0 dot-grid-bg opacity-0 pointer-events-none dark:opacity-75" />
+      <div className="absolute inset-0 dot-grid-bg-light opacity-80 pointer-events-none dark:opacity-0" />
 
-      <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-20 md:px-8 md:pt-40">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-20 md:px-8 md:pt-40 w-full">
         <div className="grid items-start gap-12 lg:grid-cols-[3fr_2fr] lg:gap-12">
           {/* ─── Left Column: Text ─── */}
           <motion.div
             variants={container}
             initial="hidden"
             animate="show"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="min-w-0"
           >
             {/* Status */}
             <motion.div variants={item} className="mb-8">
@@ -218,7 +183,7 @@ export default function Hero() {
             {/* Headline */}
             <motion.h1
               variants={item}
-              className="text-4xl font-bold leading-[1.1] tracking-tight text-zinc-900 dark:text-white sm:text-5xl md:text-6xl"
+              className="text-3xl font-bold leading-[1.1] tracking-tight text-zinc-900 dark:text-white sm:text-5xl md:text-6xl"
             >
               Frontend Developer
               <br />
@@ -265,12 +230,14 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-            className="hidden lg:block"
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+            className="w-full min-w-0 mt-8 lg:mt-0"
           >
             <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl shadow-zinc-200/50 dark:border-zinc-800 dark:bg-[#1a1a1e] dark:shadow-black/30">
               {/* ── Title Bar ── */}
-              <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-[#1e1e22]">
+              <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-3 py-2.5 sm:px-4 sm:py-3 dark:border-zinc-800 dark:bg-[#1e1e22]">
                 <div className="flex items-center gap-2">
                   {/* Traffic Lights */}
                   <div className="flex items-center gap-1.5">
@@ -279,11 +246,11 @@ export default function Hero() {
                     <span className="h-3 w-3 rounded-full bg-[#28c840] shadow-sm shadow-[#28c840]/30" />
                   </div>
                   {/* Tab */}
-                  <div className="ml-4 flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-3 py-1 dark:border-zinc-700 dark:bg-[#1a1a1e]">
+                  <div className="ml-2 sm:ml-4 flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-2.5 py-0.5 sm:px-3 sm:py-1 dark:border-zinc-700 dark:bg-[#1a1a1e]">
                     <svg className="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M3 3h7l2 2h9v15H3z" />
                     </svg>
-                    <span className="font-mono text-xs text-zinc-600 dark:text-zinc-400">
+                    <span className="font-mono text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400">
                       frezer.ts
                     </span>
                   </div>
@@ -292,7 +259,7 @@ export default function Hero() {
                 {/* Copy Button */}
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+                  className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
                   aria-label="Copy code"
                 >
                   {copied ? (
@@ -310,43 +277,34 @@ export default function Hero() {
               </div>
 
               {/* ── Code Content ── */}
-              <div className="overflow-x-auto p-4">
-                <pre className="font-mono text-[13px] leading-6">
+              <div className="overflow-x-auto p-3 sm:p-4">
+                <pre className="font-mono text-xs sm:text-[13px] leading-6">
                   <code>
-                    {Array.from({ length: totalLines }).map((_, idx) => {
-                      const lineData = tokenizedLines[idx];
-                      const lineNum = idx + 1;
-                      return (
-                        <div key={lineNum} className="flex">
-                          {/* Line Number */}
-                          <span className="mr-6 inline-block w-5 select-none text-right text-zinc-300 dark:text-zinc-700">
-                            {lineNum <= tokenizedLines.length ? lineNum : ""}
-                          </span>
-                          {/* Tokens + Cursor */}
-                          <span>
-                            {lineData?.tokens.map((token, i) => (
-                              <span key={i} className={token.className}>
-                                {token.text}
-                              </span>
-                            ))}
-                            {/* Blinking cursor on the current line */}
-                            {!isTypingDone && lineNum === tokenizedLines.length && (
-                              <span className="inline-block w-[2px] h-[15px] translate-y-[2px] bg-zinc-600 dark:bg-zinc-300 animate-[blink_1s_steps(2)_infinite]" />
-                            )}
-                            {/* Cursor after typing is done (last line) */}
-                            {isTypingDone && lineNum === totalLines && (
-                              <span className="inline-block w-[2px] h-[15px] translate-y-[2px] bg-zinc-600 dark:bg-zinc-300 animate-[blink_1s_steps(2)_infinite]" />
-                            )}
-                          </span>
-                        </div>
-                      );
-                    })}
+                    {tokenizedLines.map((lineData) => (
+                      <div key={lineData.lineNum} className="flex">
+                        {/* Line Number */}
+                        <span className="mr-3 sm:mr-6 inline-block w-4 sm:w-5 select-none text-right text-zinc-300 dark:text-zinc-700">
+                          {lineData.lineNum}
+                        </span>
+                        {/* Tokens + Cursor at end of last line */}
+                        <span>
+                          {lineData.tokens.map((token, i) => (
+                            <span key={i} className={token.className}>
+                              {token.text}
+                            </span>
+                          ))}
+                          {lineData.lineNum === totalLines && (
+                            <span className="inline-block w-[2px] h-[15px] translate-y-[2px] bg-zinc-600 dark:bg-zinc-300 animate-[blink_1s_steps(2)_infinite]" />
+                          )}
+                        </span>
+                      </div>
+                    ))}
                   </code>
                 </pre>
               </div>
 
               {/* ── Status Bar ── */}
-              <div className="flex items-center justify-between border-t border-zinc-200 bg-zinc-50 px-4 py-1.5 dark:border-zinc-800 dark:bg-[#1e1e22]">
+              <div className="flex items-center justify-between border-t border-zinc-200 bg-zinc-50 px-3 py-1.5 sm:px-4 dark:border-zinc-800 dark:bg-[#1e1e22]">
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-[10px] text-zinc-400">TypeScript</span>
                   <span className="font-mono text-[10px] text-zinc-400">UTF-8</span>

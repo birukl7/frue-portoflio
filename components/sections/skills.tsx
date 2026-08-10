@@ -141,14 +141,14 @@ export default function Skills() {
         </div>
 
         {/* Filter Bar */}
-        <div className="flex flex-wrap gap-1 rounded-md border border-zinc-200 bg-white p-1 dark:border-zinc-800 dark:bg-zinc-900/60">
+        <div className="flex flex-wrap gap-1 rounded-md border border-zinc-200 bg-white p-1 max-w-full dark:border-zinc-800 dark:bg-zinc-900/60">
           {categories.map((cat) => {
             const isActive = filter === cat.id;
             return (
               <button
                 key={cat.id}
                 onClick={() => setFilter(cat.id)}
-                className={`rounded px-3 py-1.5 font-mono text-xs transition-all duration-200 ${
+                className={`rounded px-2.5 py-1 sm:px-3 sm:py-1.5 font-mono text-[11px] sm:text-xs transition-all duration-200 ${
                   isActive
                     ? "bg-accent text-white font-medium shadow-sm"
                     : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
@@ -162,7 +162,7 @@ export default function Skills() {
       </div>
 
       {/* Minimal Pill Badges Layout */}
-      <motion.div layout className="flex flex-wrap gap-3">
+      <motion.div layout className="flex flex-wrap gap-2.5 sm:gap-3">
         <AnimatePresence mode="popLayout">
           {filteredItems.map((tech) => (
             <motion.div

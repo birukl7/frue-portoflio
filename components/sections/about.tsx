@@ -127,7 +127,7 @@ export default function About() {
     <SectionWrapper id="about" number="01" label="About">
       <div className="grid items-start gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
         {/* Left Column: Title & Clean Paragraph Description */}
-        <div>
+        <div className="min-w-0">
           <h2 className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-white md:text-4xl">
             A frontend developer who cares about the{" "}
             <span className="text-accent">details</span>.
@@ -155,7 +155,7 @@ export default function About() {
         </div>
 
         {/* Right Column: Code Window & Tab Selectors */}
-        <div>
+        <div className="min-w-0">
           {/* Tab Selectors above the Code Window */}
           <div className="mb-4 flex flex-wrap gap-2">
             {snippets.map((s) => {
@@ -164,7 +164,7 @@ export default function About() {
                 <button
                   key={s.id}
                   onClick={() => setActiveId(s.id)}
-                  className={`rounded-md border px-3.5 py-1.5 font-mono text-xs transition-all duration-300 ${
+                  className={`rounded-md border px-2.5 py-1 sm:px-3.5 sm:py-1.5 font-mono text-[11px] sm:text-xs transition-all duration-300 ${
                     isActive
                       ? "border-accent bg-accent/10 text-accent font-medium"
                       : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400 dark:hover:border-zinc-700"
@@ -179,7 +179,7 @@ export default function About() {
 
           <div className="overflow-hidden rounded-md border border-zinc-200 bg-white shadow-xl dark:border-zinc-800 dark:bg-[#1a1a1e]">
             {/* Title Bar */}
-            <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-[#1e1e22]">
+            <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-3 py-2.5 sm:px-4 sm:py-3 dark:border-zinc-800 dark:bg-[#1e1e22]">
               <div className="flex items-center gap-2">
                 {/* Traffic Lights */}
                 <div className="flex items-center gap-1.5">
@@ -188,8 +188,8 @@ export default function About() {
                   <span className="h-3 w-3 rounded-full bg-[#28c840]" />
                 </div>
                 {/* Tab */}
-                <div className="ml-4 flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-3 py-1 dark:border-zinc-700 dark:bg-[#1a1a1e]">
-                  <span className="font-mono text-xs text-zinc-600 dark:text-zinc-400">
+                <div className="ml-2 sm:ml-4 flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-2.5 py-0.5 sm:px-3 sm:py-1 dark:border-zinc-700 dark:bg-[#1a1a1e]">
+                  <span className="font-mono text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400">
                     {activeSnippet.id}.ts
                   </span>
                 </div>
@@ -198,7 +198,7 @@ export default function About() {
               {/* Copy Button */}
               <button
                 onClick={handleCopy}
-                className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+                className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-zinc-400 transition-all hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
                 aria-label="Copy snippet"
               >
                 {copied ? (
@@ -216,7 +216,7 @@ export default function About() {
             </div>
 
             {/* Code Content */}
-            <div className="p-4">
+            <div className="p-3 sm:p-4 overflow-x-auto">
               <AnimatePresence mode="wait">
                 <motion.pre
                   key={activeSnippet.id}
@@ -224,12 +224,12 @@ export default function About() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="font-mono text-[13px] leading-6"
+                  className="font-mono text-xs sm:text-[13px] leading-6"
                 >
                   <code>
                     {tokenizedLines.map((line) => (
                       <div key={line.lineNum} className="flex">
-                        <span className="mr-6 inline-block w-5 select-none text-right text-zinc-300 dark:text-zinc-700">
+                        <span className="mr-3 sm:mr-6 inline-block w-4 sm:w-5 select-none text-right text-zinc-300 dark:text-zinc-700">
                           {line.lineNum}
                         </span>
                         <span>

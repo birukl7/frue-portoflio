@@ -49,8 +49,8 @@ export default function Navbar() {
         <div
           className={`pointer-events-auto transition-all duration-500 ${
             scrolled
-              ? "mt-4 w-full max-w-4xl rounded-full border border-zinc-200/80 bg-white/75 p-2 px-6 shadow-xl shadow-black/5 backdrop-blur-2xl dark:border-zinc-800/80 dark:bg-zinc-950/75 dark:shadow-black/40"
-              : "mt-0 w-full max-w-6xl border-b border-transparent bg-transparent py-4 px-6 md:px-8"
+              ? "mt-4 w-full max-w-4xl rounded-full border border-zinc-200/80 bg-white/75 p-2 px-4 sm:px-6 shadow-xl shadow-black/5 backdrop-blur-2xl dark:border-zinc-800/80 dark:bg-zinc-950/75 dark:shadow-black/40"
+              : "mt-0 w-full max-w-6xl border-b border-transparent bg-transparent py-4 px-4 sm:px-6 md:px-8"
           }`}
         >
           <nav className="flex items-center justify-between">

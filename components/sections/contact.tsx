@@ -35,7 +35,7 @@ const contactLinks = [
 export default function Contact() {
   return (
     <SectionWrapper id="contact" number="06" label="Contact">
-      <div className="relative overflow-hidden rounded-lg border border-zinc-200 bg-white p-8 text-center transition-all duration-300 dark:border-zinc-800 dark:bg-zinc-900/40 md:p-16">
+      <div className="relative overflow-hidden rounded-lg border border-zinc-200 bg-white p-5 sm:p-8 text-center transition-all duration-300 dark:border-zinc-800 dark:bg-zinc-900/40 md:p-16">
         {/* Background accents */}
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />
         <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />

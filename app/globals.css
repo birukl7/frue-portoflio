@@ -1,26 +1,175 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background-dark: #0a0a0b;
+  --color-background-dark-secondary: #111113;
+  --color-background-light: #fafaf9;
+  --color-background-light-secondary: #ffffff;
+
+  --color-text-dark-primary: #e4e4e7;
+  --color-text-dark-secondary: #a1a1aa;
+  --color-text-dark-muted: #71717a;
+  --color-text-light-primary: #18181b;
+  --color-text-light-secondary: #3f3f46;
+  --color-text-light-muted: #71717a;
+
+  --color-accent: #8b5cf6;
+  --color-accent-light: #a78bfa;
+  --color-accent-dark: #7c3aed;
+
+  --color-border-dark: #27272a;
+  --color-border-light: #e4e4e7;
+
+  --color-glass-dark: rgba(255, 255, 255, 0.03);
+  --color-glass-light: rgba(0, 0, 0, 0.02);
+
+  --color-card-dark: rgba(255, 255, 255, 0.02);
+  --color-card-light: rgba(0, 0, 0, 0.01);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ───── Base ───── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(139, 92, 246, 0.3);
+  color: inherit;
+}
+
+/* Global Cursor Pointer for buttons and links */
+button,
+a,
+[role="button"] {
+  cursor: pointer;
+}
+
+/* ───── Scrollbar ───── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* ───── Grid Background ───── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.grid-bg-light {
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ───── Gradient Overlays ───── */
+.gradient-fade-b {
+  background: linear-gradient(to bottom, transparent, var(--color-background-dark));
+}
+
+.gradient-fade-b-light {
+  background: linear-gradient(to bottom, transparent, var(--color-background-light));
+}
+
+/* ───── Glass Card ───── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .glass-card,
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ───── Pulsing Dot ───── */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ───── Blinking Cursor ───── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ───── Glow Effect ───── */
+.glow {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.35);
+}
+
+/* ───── Focus Styles ───── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ───── Reduced Motion ───── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ───── Noise texture ───── */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }

@@ -162,13 +162,13 @@ export default function Projects() {
               <div className="relative mx-auto w-56 overflow-hidden rounded-[2.5rem] border-[6px] border-zinc-800 bg-zinc-900 shadow-2xl dark:border-zinc-600 md:w-64">
                 {/* Notch */}
                 <div className="absolute left-1/2 top-2 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-zinc-900 dark:bg-zinc-800" />
-                <Image
-                  src="/visitaddis-mockup.png"
-                  alt="Visit Addis mobile app showing popular places in Addis Ababa with event discovery and hotel listings"
-                  width={400}
-                  height={800}
-                  className="h-auto w-full object-cover"
-                  loading="lazy"
+                <video
+                  src="/visit_addis.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="h-auto w-full object-cover pointer-events-none select-none"
                 />
               </div>
             </motion.div>

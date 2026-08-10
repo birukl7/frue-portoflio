@@ -192,13 +192,9 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* Background Grid */}
-      <div className="absolute inset-0 grid-bg dark:grid-bg opacity-0 dark:opacity-100" />
-      <div className="absolute inset-0 grid-bg-light dark:grid-bg-light opacity-100 dark:opacity-0" />
-
-      {/* Gradient Orbs */}
-      <div className="absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-accent/5 blur-3xl" />
-      <div className="absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-accent/3 blur-3xl" />
+      {/* Background Dot Sheet Fabric Pattern */}
+      <div className="absolute inset-0 dot-grid-bg opacity-0 dark:opacity-75" />
+      <div className="absolute inset-0 dot-grid-bg-light opacity-80 dark:opacity-0" />
 
       <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-20 md:px-8 md:pt-40">
         <div className="grid items-start gap-12 lg:grid-cols-[3fr_2fr] lg:gap-12">

@@ -28,33 +28,8 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    id: "peak12",
-    index: "01",
-    company: "Peak 12",
-    role: "Frontend Development Lead",
-    type: "Cofounder",
-    period: "Dec 2025 – May 2026",
-    location: "Addis Ababa, Ethiopia",
-    highlightMetric: "5,000+ Grade 12 Students Served",
-    description:
-      "Cofounded and engineered the frontend architecture for Peak 12, an exam preparation and challenge platform designed to prepare Ethiopian Grade 12 students for University Entrance Examinations.",
-    achievements: [
-      "Integrated frontend applications with REST APIs for real-time exam questions, authentication, user progress, and analytics.",
-      "Optimized client-side rendering performance for seamless operation across low-bandwidth mobile networks.",
-      "Architected a reusable component library using React.js, Next.js, TypeScript, and Tailwind CSS.",
-      "Delivered a production-ready application serving more than 5,000 active Ethiopian Grade 12 students.",
-    ],
-    technologies: [
-      "React.js",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "REST APIs",
-    ],
-  },
-  {
     id: "zemenay",
-    index: "02",
+    index: "01",
     company: "Zemenay Tech",
     role: "Frontend Engineer Intern",
     type: "Internship",
@@ -79,7 +54,7 @@ const experiences: Experience[] = [
   },
   {
     id: "gdsc",
-    index: "03",
+    index: "02",
     company: "GDSC AASTU",
     role: "Flutter Developer Mentee",
     type: "Mentee",
@@ -171,7 +146,7 @@ function DossierDetailCard({ exp }: { exp: Experience }) {
 }
 
 export default function Experience() {
-  const [activeId, setActiveId] = useState<string | null>("peak12");
+  const [activeId, setActiveId] = useState<string | null>("zemenay");
   const activeExp = experiences.find((e) => e.id === activeId) || experiences[0];
 
   return (
